@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.hpc.its.area.dao.mapper.StandardRoadMapper">
+
+	<insert id="insertRoad" parameterType="standardRoad">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			select
+			LAST_INSERT_ID()
+		</selectKey>
+    insert into StandardRoad
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="horizontalNum != null" >
+        horizontalNum,
+      </if>
+      <if test="ordinateNum != null" >
+        ordinateNum,
+      </if>
+      <if test="horizontal != null" >
+        horizontal,
+      </if>
+      <if test="open != null" >
+        open,
+      </if>
+      <if test="realityLength != null" >
+        realityLength,
+      </if>
+      <if test="oneCross != null" >
+        oneCross,
+      </if>
+      <if test="otherCross != null" >
+        otherCross,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="horizontalNum != null" >
+        #{horizontalNum,jdbcType=INTEGER},
+      </if>
+      <if test="ordinateNum != null" >
+        #{ordinateNum,jdbcType=INTEGER},
+      </if>
+      <if test="horizontal != null" >
+        #{horizontal,jdbcType=BIT},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=BIT},
+      </if>
+      <if test="realityLength != null" >
+        #{realityLength,jdbcType=DOUBLE},
+      </if>
+      <if test="oneCross != null" >
+        #{oneCross.id,jdbcType=BIGINT},
+      </if>
+      <if test="otherCross != null" >
+        #{otherCross.id,jdbcType=BIGINT},
+      </if>
+    </trim>
+	</insert>
+</mapper>
