@@ -11,7 +11,7 @@ public class StandardMBean extends StandardBase {
 
 	@Override
 	protected void startInternal() throws LifecycleException {
-		
+
 	}
 
 	@Override

@@ -5,6 +5,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="edu.hpc.its.area.dao.mapper.StandardAreaMapper">
 
+	<resultMap id="BaseResultMap" type="standardArea">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="CHAR" />
+		<result column="ip" property="ip" jdbcType="CHAR" />
+		<result column="port" property="port" jdbcType="INTEGER" />
+		<result column="width" property="width" jdbcType="BIGINT" />
+		<result column="length" property="length" jdbcType="BIGINT" />
+		<result column="roadNum" property="roadNum" jdbcType="INTEGER" />
+		<result column="crossNum" property="crossNum" jdbcType="INTEGER" />
+		<result column="lightNum" property="lightNum" jdbcType="INTEGER" />
+	</resultMap>
+
 	<insert id="insertArea" parameterType="standardArea">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			select
@@ -24,4 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{crossNum,jdbcType=INTEGER},
 		#{lightNum,jdbcType=INTEGER})
 	</insert>
+	<select id="selectAreaByName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select id, name, ip, port, width, length, roadNum, crossNum, lightNum 
+		from StandardArea
+		where name=#{name}
+	</select>
 </mapper>

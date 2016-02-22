@@ -1,9 +1,15 @@
 package edu.hpc.its.area.core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import edu.hpc.its.area.Constant;
 import edu.hpc.its.area.Cross;
+import edu.hpc.its.area.LifecycleState;
+import edu.hpc.its.area.exception.LifecycleException;
+import edu.hpc.its.area.factory.StandardEntityFactory;
 
 /**
  * 十字路口
@@ -17,6 +23,100 @@ public class StandardCross extends StandardEntity implements Cross {
 	 * 
 	 */
 	private static final long serialVersionUID = 4788436655613033523L;
+
+	@Override
+	protected void startInternal() throws LifecycleException {
+		setState(LifecycleState.STARTING);
+		for (Entry<Direction, StandardLight> light : lights.entrySet()) {
+			light.getValue().start();
+		}
+		for (Entry<Direction, StandardRoad> road : roads.entrySet()) {
+			road.getValue().start();
+		}
+	}
+
+	@Override
+	protected void stopInternal() throws LifecycleException {
+		// TODO Auto-generated method stub
+		super.stopInternal();
+	}
+
+	@Override
+	protected void initInternal() throws LifecycleException {
+		super.initInternal();
+		// 初始化坐标
+		xxPoint = Constant.ROADREALITYLENGTH * horizontalNum;
+		yyPoint = Constant.ROADREALITYLENGTH * ordinateNum;
+		// 初始化路
+		List<StandardRoad> roadList = StandardEntityFactory.getRoads(getId());
+		if (roadList != null && roadList.size() > 0) {
+			for (StandardRoad road : roadList) {
+				if (!StandardEntityFactory.contains(road))
+					StandardEntityFactory.addRoad(road);
+				else
+					road = StandardEntityFactory.getRoad(road.getId());
+				// 判断方向
+				if (road.getHorizontalNum() == this.horizontalNum && road.getOrdinateNum() == this.ordinateNum) {
+					if (road.isHorizontal()) {
+						roads.put(Direction.WEST, road);
+						if (road.getOneCross() != null) {
+							road.setOtherCross(this);
+						} else {
+							road.setOneCross(this);
+						}
+						continue;
+					} else {
+						roads.put(Direction.NORTH, road);
+						if (road.getOneCross() != null) {
+							road.setOtherCross(this);
+						} else {
+							road.setOneCross(this);
+						}
+						continue;
+					}
+				} else {
+					if (road.getHorizontalNum() == this.horizontalNum) {
+						roads.put(Direction.SOUTH, road);
+						if (road.getOneCross() != null) {
+							road.setOtherCross(this);
+						} else {
+							road.setOneCross(this);
+						}
+						continue;
+					} else {
+						roads.put(Direction.EAST, road);
+						if (road.getOneCross() != null) {
+							road.setOtherCross(this);
+						} else {
+							road.setOneCross(this);
+						}
+						continue;
+					}
+				}
+			}
+		} else {
+			throw new LifecycleException("roads's number is 0!");
+		}
+		// 初始化灯
+		List<StandardLight> lights = StandardEntityFactory.getLight(getId());
+		if (lights != null && lights.size() > 0) {
+			for (StandardLight light : lights) {
+				light.setStandardCross(this);
+				this.lights.put(light.getDirection(), light);
+				light.init();
+			}
+		} else {
+			throw new LifecycleException("lights's number is 0!");
+		}
+	}
+
+	@Override
+	protected void destroyInternal() throws LifecycleException {
+		// TODO Auto-generated method stub
+		super.destroyInternal();
+	}
+
+	/***************************** BEAN *****************************/
 
 	private Integer horizontalNum;// 横数第几个
 	private Integer ordinateNum;// 纵数第几个
@@ -82,6 +182,12 @@ public class StandardCross extends StandardEntity implements Cross {
 
 	public void setStandardArea(StandardArea standardArea) {
 		this.standardArea = standardArea;
+	}
+
+	@Override
+	public String toString() {
+		return "StandardCross [horizontalNum=" + horizontalNum + ", ordinateNum=" + ordinateNum + ", xxPoint=" + xxPoint + ", yyPoint=" + yyPoint + ", standardArea=" + standardArea
+				+ "]";
 	}
 
 }

@@ -5,15 +5,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="edu.hpc.its.area.dao.mapper.StandardCrossMapper">
 
+	<resultMap id="BaseResultMap" type="standardCross">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="horizontalNum" property="horizontalNum"
+			jdbcType="INTEGER" />
+		<result column="ordinateNum" property="ordinateNum" jdbcType="INTEGER" />
+		<association property="standardArea" javaType="standardArea">
+			<id column="id" property="id" />
+		</association>
+	</resultMap>
+
 	<insert id="insertCross" parameterType="standardCross">
-		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+		<selectKey keyProperty="id" order="AFTER" resultType="long">
 			select
 			LAST_INSERT_ID()
 		</selectKey>
 		insert into StandardCross (id, horizontalNum, ordinateNum,
 		standardArea)
-		values (#{id,jdbcType=BIGINT}, #{horizontalNum,jdbcType=INTEGER},
+		values (#{id,jdbcType=BIGINT},
+		#{horizontalNum,jdbcType=INTEGER},
 		#{ordinateNum,jdbcType=INTEGER},
 		#{standardArea.id,jdbcType=BIGINT})
 	</insert>
+	
+	<select id="selectStandardCrosses" parameterType="long"
+		resultMap="BaseResultMap">
+		select id, horizontalNum, ordinateNum, standardArea
+    	from StandardCross
+    	where standardArea = #{id,jdbcType=BIGINT}
+	</select>
 </mapper>

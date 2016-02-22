@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<areas>
+	<area>
+		<property name="areaId" value="NUM001" /><!-- 区域ID -->
+		<property name="areaName" value="一号区域" /><!-- 区域名称 -->
+		<property name="areaPort" value="19234" /><!-- 区域端口号 -->
+		<property name="areaIp" value="127.0.0.1" /><!-- 区域IP -->
+		<property name="onecm" value="40.00" /><!-- 换算关系：多少double值表示一厘米 -->
+		<property name="compress" value="1720" /><!-- 压缩率：实际长度/压缩后长度 -->
+		<property name="horizontalNum" value="5" /><!-- 横向路口个数 -->
+		<property name="verticalNum" value="5" /><!-- 纵向路口个数 -->
+		<property name="roadLength" value="100000" /><!-- 路长多少cm -->
+		<property name="laneNum" value="3" /><!-- 一个路有laneNum条单向行道，即一个路是laneNum*2条车道 -->
+		<property name="laneWide" value="150" /><!-- 道宽cm -->
+	</area>
+</areas>

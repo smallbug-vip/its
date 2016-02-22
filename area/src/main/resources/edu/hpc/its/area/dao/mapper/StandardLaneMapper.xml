@@ -5,6 +5,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="edu.hpc.its.area.dao.mapper.StandardLaneMapper">
 
+	<resultMap id="BaseResultMap" type="standardLane">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="realityLength" property="realityLength" jdbcType="DOUBLE" />
+		<result column="realityWidth" property="realityWidth" jdbcType="DOUBLE" />
+		<result column="number" property="number" jdbcType="INTEGER" />
+		<association property="standardRoad" javaType="standardRoad">
+			<id column="standardRoad" property="id" jdbcType="BIGINT" />
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, realityLength, realityWidth, number, standardRoad
+	</sql>
+
 	<insert id="insertLane" parameterType="standardLane">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			select
@@ -40,4 +54,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</trim>
 	</insert>
+
+
+
+	<select id="selectStandardLanes" parameterType="long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from StandardLane
+		where StandardRoad=#{id}
+	</select>
 </mapper>

@@ -5,6 +5,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="edu.hpc.its.area.dao.mapper.StandardLightMapper">
 
+	<resultMap id="BaseResultMap" type="standardLight">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="size" property="size" jdbcType="DOUBLE" />
+		<result column="lightState" property="lightState" jdbcType="INTEGER" />
+		<result column="centerX" property="centerX" jdbcType="DOUBLE" />
+		<result column="centerY" property="centerY" jdbcType="DOUBLE" />
+		<result column="red" property="red" jdbcType="DOUBLE" />
+		<result column="green" property="green" jdbcType="DOUBLE" />
+		<result column="direction" property="direction" jdbcType="INTEGER" typeHandler="edu.hpc.its.area.dao.mysql.EnumTypeHandler" />
+		<association property="standardCross" javaType="standardCross">
+			<id column="standardCross" property="id" jdbcType="BIGINT" />
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, size, lightState, centerX, centerY, red, green, standardCross, direction
+	</sql>
+
 	<insert id="insertLight" parameterType="standardLight">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			select
@@ -64,4 +82,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</trim>
 	</insert>
+	<select id="selectStandardLight" parameterType="long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from StandardLight
+		where standardCross=#{id}
+	</select>
 </mapper>

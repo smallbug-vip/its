@@ -5,6 +5,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="edu.hpc.its.area.dao.mapper.StandardRoadMapper">
 
+	<resultMap id="BaseResultMap" type="standardRoad" >
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="horizontalNum" property="horizontalNum" jdbcType="INTEGER" />
+		<result column="ordinateNum" property="ordinateNum" jdbcType="INTEGER" />
+		<result column="horizontal" property="horizontal" jdbcType="BIT" />
+		<result column="open" property="open" jdbcType="BIT" />
+		<result column="realityLength" property="realityLength" jdbcType="DOUBLE" />
+		<result column="realityWidth" property="realityWidth" jdbcType="DOUBLE" />
+	</resultMap>
+  
+    <sql id="Base_Column_List" >
+    id, horizontalNum, ordinateNum, horizontal, open, realityLength
+  </sql>
+  
 	<insert id="insertRoad" parameterType="standardRoad">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			select
@@ -64,4 +78,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       </if>
     </trim>
 	</insert>
+	<select id="selectStandardCrosses" parameterType="long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from StandardRoad
+		where oneCross=#{id} or otherCross=#{id}
+	</select>
 </mapper>

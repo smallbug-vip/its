@@ -1,10 +1,14 @@
 package edu.hpc.its.area.core;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import edu.hpc.its.area.Area;
+import edu.hpc.its.area.LifecycleState;
 import edu.hpc.its.area.exception.LifecycleException;
+import edu.hpc.its.area.factory.StandardEntityFactory;
 
 /**
  * 区域
@@ -21,8 +25,15 @@ public class StandardArea extends StandardEntity implements Area {
 
 	@Override
 	protected void startInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 		super.startInternal();
+		setState(LifecycleState.STARTING);
+		if (crosses != null && crosses.size() > 0) {
+			for (StandardCross cross : crosses) {
+				cross.start();
+			}
+		} else {
+			throw new LifecycleException("crosses's number is 0! ");
+		}
 	}
 
 	@Override
@@ -33,8 +44,17 @@ public class StandardArea extends StandardEntity implements Area {
 
 	@Override
 	protected void initInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 		super.initInternal();
+		List<StandardCross> crosseList = StandardEntityFactory.getCrosses(getId());
+		if (crosseList != null && crosseList.size() > 0) {
+			for (StandardCross cross : crosseList) {
+				cross.setStandardArea(this);
+				addCross(cross);
+				cross.init();
+			}
+		} else {
+			throw new LifecycleException("crosses's number is 0! ");
+		}
 	}
 
 	@Override
@@ -55,6 +75,16 @@ public class StandardArea extends StandardEntity implements Area {
 	private int lightNum;// 该区域红绿灯的数量
 
 	private Set<OpenRoad> openRoads = new HashSet<>();// 该区域与其他区域路口的交接情况
+
+	private List<StandardCross> crosses = new ArrayList<>();
+
+	public void addCross(StandardCross cross) {
+		crosses.add(cross);
+	}
+
+	public List<StandardCross> getCrosses() {
+		return crosses;
+	}
 
 	public String getName() {
 		return name;

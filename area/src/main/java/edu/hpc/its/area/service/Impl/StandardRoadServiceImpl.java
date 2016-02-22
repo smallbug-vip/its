@@ -1,8 +1,11 @@
 package edu.hpc.its.area.service.Impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import edu.hpc.its.area.Road;
+import edu.hpc.its.area.core.StandardRoad;
 import edu.hpc.its.area.dao.mapper.StandardRoadMapper;
 import edu.hpc.its.area.exception.MyBatisException;
 import edu.hpc.its.area.exception.ServiceException;
@@ -25,6 +28,17 @@ public class StandardRoadServiceImpl implements StandardRoadService {
 		} catch (Exception e) {
 			throw new MyBatisException(e);
 		}
+	}
+
+	@Override
+	public List<StandardRoad> getStandardCrosses(Long crossId) {
+		List<StandardRoad> roads = null;
+		try {
+			roads = mapper.selectStandardCrosses(crossId);
+		} catch (Exception e) {
+			throw new MyBatisException(e);
+		}
+		return roads;
 	}
 
 }

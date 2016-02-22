@@ -30,12 +30,12 @@ public abstract class StandardBase implements Lifecycle {
 	/**
 	 * 日志
 	 */
-	protected Logger log = Logger.getLogger(StandardPipeline.class);
+	private Logger log = Logger.getLogger(StandardPipeline.class);
 
 	/**
 	 * 异常管理器
 	 */
-	protected StringManager sManager = StringManager.getManager("cn.smallbug.area");
+	protected StringManager sManager = StringManager.getManager("edu.hpc.its.area");
 
 	/**
 	 * 添加监听器
@@ -109,17 +109,15 @@ public abstract class StandardBase implements Lifecycle {
 	 */
 	@Override
 	public final synchronized void init() throws LifecycleException {
-		if (!state.equals(LifecycleState.NEW)) {
+		if (!state.equals(LifecycleState.NEW)) {// 初始化之前状态必须是NEW
 			invalidTransition(Lifecycle.BEFORE_INIT_EVENT);
 		}
 		setStateInternal(LifecycleState.INITIALIZING, null, false);
-
 		try {
 			initInternal();
 		} catch (Throwable t) {
 			setStateInternal(LifecycleState.FAILED, null, false);
-			// TODO
-			throw new LifecycleException(sManager.getString("lifecycleBase.initFail", toString()), t);
+			throw new LifecycleException(sManager.getString("standardBase.initInternal.err01", toString()), t);
 		}
 		setStateInternal(LifecycleState.INITIALIZED, null, false);
 
@@ -130,19 +128,16 @@ public abstract class StandardBase implements Lifecycle {
 	 */
 	@Override
 	public final synchronized void start() throws LifecycleException {
+		if (LifecycleState.STARTED.equals(state))
+			return;
 		if (LifecycleState.STARTING_PREP.equals(state) //
-				|| LifecycleState.STARTING.equals(state) //
-				|| LifecycleState.STARTED.equals(state)) {
-
+				|| LifecycleState.STARTING.equals(state)) {
 			if (log.isDebugEnabled()) {
 				Exception e = new LifecycleException();
-				// TODO
-				log.debug(sManager.getString("lifecycleBase.alreadyStarted", toString()), e);
-				// TODO
+				log.debug(sManager.getString("standardBase.alreadyStarted.info01", toString()), e);
 			} else if (log.isInfoEnabled()) {
-				log.info(sManager.getString("lifecycleBase.alreadyStarted", toString()));
+				log.info(sManager.getString("standardBase.alreadyStarted.info01", toString()));
 			}
-
 			return;
 		}
 
@@ -160,7 +155,7 @@ public abstract class StandardBase implements Lifecycle {
 			startInternal();
 		} catch (Throwable t) {
 			setStateInternal(LifecycleState.FAILED, null, false);
-			throw new LifecycleException(sManager.getString("lifecycleBase.startFail", toString()), t);
+			throw new LifecycleException(sManager.getString("standardBase.startFail.err01", toString()), t);
 		}
 
 		if (state.equals(LifecycleState.FAILED) || state.equals(LifecycleState.MUST_STOP)) {
@@ -318,7 +313,7 @@ public abstract class StandardBase implements Lifecycle {
 				return;
 			}
 
-			if (!(state == LifecycleState.FAILED //
+			if (!(state == LifecycleState.FAILED // 状态转换必须属于其中之一
 					|| (this.state == LifecycleState.STARTING_PREP && state == LifecycleState.STARTING)
 					|| (this.state == LifecycleState.STOPPING_PREP && state == LifecycleState.STOPPING)
 					|| (this.state == LifecycleState.FAILED && state == LifecycleState.STOPPING))) {
@@ -328,7 +323,6 @@ public abstract class StandardBase implements Lifecycle {
 
 		this.state = state;
 		String lifecycleEvent = state.getLifecycleEvent();
-
 		if (lifecycleEvent != null) {
 			fireLifecycleEvent(lifecycleEvent, data);
 		}
