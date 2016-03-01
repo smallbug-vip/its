@@ -58,18 +58,24 @@ public class CarExpeInfoImplTest {
 
 	@Test
 	public void testSelectCarInfo() {
-		String s = info.selectCarInfo("Exp0002", 34L);
+		String s = info.selectCarInfo("Exp000002", 34L);
 		System.out.println(s);
 	}
 
 	@Test
 	public void testSelectExpCar() {
-		List<String> ss = info.selectExpCar("Exp0002");
+		List<String> ss = info.selectExpCar("Exp000002");
 		if (ss != null) {
 			for (String s : ss) {
 				System.out.println(s);
 			}
 		}
+	}
+
+	@Test
+	public void testGetAvgTime() {
+		String[] s = { "Exp000002", "Exp000001" };
+		System.out.println(info.getAvgTime(s));
 	}
 
 }

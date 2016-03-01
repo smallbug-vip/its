@@ -1,10 +1,15 @@
 package edu.hpc.its.area.rule;
 
+import org.apache.log4j.Logger;
+
 import edu.hpc.its.area.Car;
+import edu.hpc.its.area.Constant;
 import edu.hpc.its.area.core.StandardCar;
 import edu.hpc.its.area.core.StandardCross;
 import edu.hpc.its.area.core.StandardLane;
 import edu.hpc.its.area.core.StandardRoad;
+import edu.hpc.its.area.dao.mongodb.CarExpeInfo;
+import edu.hpc.its.area.dao.mongodb.CarExpeInfoImpl;
 import edu.hpc.its.area.factory.StandardEntityFactory;
 
 /**
@@ -14,6 +19,9 @@ import edu.hpc.its.area.factory.StandardEntityFactory;
  * @author smallbug
  */
 public class ChangeRoadRule extends BaseRule {
+
+	private CarExpeInfo info = new CarExpeInfoImpl();
+	private Logger log = Logger.getLogger(ChangeRoadRule.class);
 
 	@Override
 	public void invoke() {
@@ -39,7 +47,15 @@ public class ChangeRoadRule extends BaseRule {
 							}
 						}
 						car.setNextCross(cross);
+
 						/////////////////////////// 换车道
+						Long roadTime = car.getRoadTime();
+						if (Constant.ISNOTEINFO != 0) {
+							info.insertRoadTime(Constant.EXPID, car.getCurrentLane().getStandardRoad().getId(), //
+									car.getId(), System.currentTimeMillis() - roadTime);// 记录车在这条路上花费的时间
+						}
+						car.setRoadTime(System.currentTimeMillis());// 重新设置当前时间
+
 						car.getCurrentLane().removeCar(car);
 						if (roads[i + 1].isHorizontal()) {
 							if (roads[i].getXxOne() - roads[i + 1].getXxOne() > 0) {// 向西走
@@ -77,13 +93,18 @@ public class ChangeRoadRule extends BaseRule {
 					}
 				}
 
-				System.out.println(car + " car come out !");
+				log.info("The car id  is -> " + car.getId() + " come out !");
+				if (Constant.ISNOTEINFO != 0) {
+					info.insertRoadTime(Constant.EXPID, car.getCurrentLane().getStandardRoad().getId(), //
+							car.getId(), System.currentTimeMillis() - car.getRoadTime());// 记录车在这条路上花费的时间
+					info.insertAppearTime(Constant.EXPID, car.getId(), System.currentTimeMillis() - car.getAllTime());// 记录车在本次实验中出现的时间
+				}
 				StandardEntityFactory.removeCar(car);
 				car.getCurrentLane().removeCar(car);
 				car.setCurrentLane(null);
 				car.setNextCross(null);
 				car.setRoads(null);
-				return ;
+				return;
 
 			}
 			getNext().invoke();

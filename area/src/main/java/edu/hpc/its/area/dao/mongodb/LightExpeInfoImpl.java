@@ -69,4 +69,18 @@ public class LightExpeInfoImpl implements LightExpeInfo {
 		return infos;
 	}
 
+	@Override
+	public List<Double> selectLightTimeByExpIds(String[] expIds) {
+		if (expIds == null) {
+			throw new IllegalArgumentException("expIds not null !");
+		}
+		List<Double> dd = new ArrayList<>();
+		MongoCollection<Document> col = mongo.getDb().getCollection("lightInfo");
+		for (String expId : expIds) {
+			Document d = col.find(eq("expId", expId)).first();
+			dd.add(d.getDouble("red"));
+		}
+		return dd;
+	}
+
 }

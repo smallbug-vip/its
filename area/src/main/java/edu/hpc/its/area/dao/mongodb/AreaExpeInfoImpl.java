@@ -4,6 +4,8 @@
 package edu.hpc.its.area.dao.mongodb;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.exists;
+import static com.mongodb.client.model.Sorts.ascending;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +85,7 @@ public class AreaExpeInfoImpl implements AreaExpeInfo {
 	public List<String> selectAll() {
 		MongoCollection<Document> col = mongo.getDb().getCollection("experiment");
 		List<String> infos = new ArrayList<>();
-		for (Document cur : col.find()) {
+		for (Document cur : col.find(exists("expId")).sort(ascending("expId"))) {
 			infos.add(cur.toJson());
 		}
 		if (infos.size() == 0) {

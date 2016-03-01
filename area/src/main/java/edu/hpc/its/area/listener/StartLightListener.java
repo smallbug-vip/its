@@ -4,8 +4,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import edu.hpc.its.area.Area;
+import edu.hpc.its.area.Constant;
 import edu.hpc.its.area.Lifecycle;
+import edu.hpc.its.area.core.StandardArea;
 import edu.hpc.its.area.core.StandardLight;
+import edu.hpc.its.area.dao.mongodb.AreaExpeInfo;
+import edu.hpc.its.area.dao.mongodb.AreaExpeInfoImpl;
+import edu.hpc.its.area.dao.mongodb.LightExpeInfo;
+import edu.hpc.its.area.dao.mongodb.LightExpeInfoImpl;
 import edu.hpc.its.area.factory.StandardEntityFactory;
 
 /**
@@ -20,12 +26,30 @@ public class StartLightListener implements LifecycleListener {
 	public void lifecycleEvent(LifecycleEvent event) {
 		if (event.getLifecycle() instanceof Area //
 				&& Lifecycle.AFTER_START_EVENT.equals(event.getType())) {
+
+			AreaExpeInfo info = new AreaExpeInfoImpl();
+			if (Constant.ISNOTEINFO != 0) {
+				
+				info.createExp(Constant.EXPID, (StandardArea) event.getLifecycle());// 创建一个实验
+			}
+
 			Thread lightListener = new Thread(new Runnable() {
 
 				Map<Long, StandardLight> lightMap = StandardEntityFactory.getLightMap();
 
 				@Override
 				public void run() {
+
+					LightExpeInfo info = new LightExpeInfoImpl();
+
+					for (Entry<Long, StandardLight> l : lightMap.entrySet()) {
+						StandardLight light = l.getValue();
+						if (Constant.ISNOTEINFO != 0) {
+							
+							info.insertLightInfo(Constant.EXPID, light);// 记录信号灯信息
+						}
+					}
+
 					while (true) {
 						for (Entry<Long, StandardLight> l : lightMap.entrySet()) {
 							StandardLight light = l.getValue();

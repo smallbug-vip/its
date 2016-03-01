@@ -16,6 +16,9 @@
 .icon-save{
 	background:url('icons/filesave.png') no-repeat center center;
 }
+.icon-chart{
+	background:url('icons/chart.png') no-repeat center center;
+}
 .icon-cut{
 	background:url('icons/cut.png') no-repeat center center;
 }

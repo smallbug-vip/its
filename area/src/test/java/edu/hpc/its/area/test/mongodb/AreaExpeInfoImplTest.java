@@ -41,19 +41,27 @@ public class AreaExpeInfoImplTest {
 	@Test
 	public void testSelectAll() {
 		List<String> ss = info.selectAll();
-		for (String s : ss) {
-			System.out.println(s);
+		if (ss != null) {
+			for (String s : ss) {
+				System.out.println(s);
+			}
 		}
+
 	}
 
 	@Test
 	public void testDelExpByExpId() {
-		info.delExpByExpId("Exp0002");
+//		info.delExpByExpId("Exp000001");
+		info.delExpByExpId("Exp000001");
+//		info.delExpByExpId("Exp000003");
+//		info.delExpByExpId("Exp000004");
+//		info.delExpByExpId("Exp000005");
+//		info.delExpByExpId("Exp000006");
 	}
 
 	@Test
 	public void testSelectCarNum() {
-		long l = info.selectCarNum("Exp0001");
+		long l = info.selectCarNum("Exp000002");
 		System.out.println(l);
 	}
 

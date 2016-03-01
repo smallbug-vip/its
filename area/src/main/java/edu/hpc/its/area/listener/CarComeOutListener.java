@@ -10,6 +10,8 @@ import edu.hpc.its.area.core.StandardCar;
 import edu.hpc.its.area.core.StandardCross;
 import edu.hpc.its.area.core.StandardLane;
 import edu.hpc.its.area.core.StandardRoad;
+import edu.hpc.its.area.dao.mongodb.CarExpeInfo;
+import edu.hpc.its.area.dao.mongodb.CarExpeInfoImpl;
 import edu.hpc.its.area.factory.StandardEntityFactory;
 
 /**
@@ -31,9 +33,11 @@ public class CarComeOutListener implements LifecycleListener {
 	private void carComeOut() {
 		Thread t = new Thread(new Runnable() {
 			int count = Constant.CARCOMEOOUTNUM;
+			private CarExpeInfo info = new CarExpeInfoImpl();
 
 			@Override
 			public void run() {
+				Long idNum = 10000000000L;
 				while (Constant.CARCOMEOOUTNUM == 0 ? true : (count-- > 0)) {// CARCOMEOOUTNUM==0将一直循环，否则循环给定的次数
 					Random random = new Random();
 					for (Double d : StandardEntityFactory.getSpeeds()) {// 遍历所有的速度
@@ -41,6 +45,8 @@ public class CarComeOutListener implements LifecycleListener {
 							String[] rs = route.split(",");
 							/////////////////////////// 初始化车，随机选取车型
 							StandardCar car = StandardEntityFactory.careateCar();
+							/////////////////////////// 设置ID
+							car.setId(++idNum);
 							/////////////////////////// 设置车要走的路线
 							StandardRoad[] rArray = new StandardRoad[rs.length];
 							int i = 0;
@@ -48,30 +54,29 @@ public class CarComeOutListener implements LifecycleListener {
 								rArray[i++] = StandardEntityFactory.getSignRoad(str);
 							}
 							i = 0;
+							car.setRouteString(route);
 							car.setRoads(rArray);
 							/////////////////////////// 设置车速
 							car.setSpeed(d);
 							/////////////////////////// 设置当前车道
 							Lane lane = null;
-							if (new Integer(rs[0].split("\\|")[1]) == (Constant.VERTICALNUM + 1)//是否为东向或者南向进入
+							if (new Integer(rs[0].split("\\|")[1]) == (Constant.VERTICALNUM + 1)// 是否为东向或者南向进入
 									|| new Integer(rs[0].split("\\|")[2]) == (Constant.HORIZONTALNUM + 1)) {
 								if ("H".equals(rs[0].split("\\|")[0])) {
-									lane = (StandardLane) rArray[0].getOtherLane()
-											.get(random.nextInt(rArray[0].getOtherLane().size()) + 1);
+									lane = (StandardLane) rArray[0].getOtherLane().get(random.nextInt(rArray[0].getOtherLane().size()) + 1);
 								} else {
-									lane = (StandardLane) rArray[0].getOneLane()
-											.get(random.nextInt(rArray[0].getOneLane().size()) + 1);
+									lane = (StandardLane) rArray[0].getOneLane().get(random.nextInt(rArray[0].getOneLane().size()) + 1);
 								}
 							} else {
 								if ("H".equals(rs[0].split("\\|")[0])) {
-									lane = (StandardLane) rArray[0].getOneLane()
-											.get(random.nextInt(rArray[0].getOneLane().size()) + 1);
+									lane = (StandardLane) rArray[0].getOneLane().get(random.nextInt(rArray[0].getOneLane().size()) + 1);
 								} else {
-									lane = (StandardLane) rArray[0].getOtherLane()
-											.get(random.nextInt(rArray[0].getOtherLane().size()) + 1);
+									lane = (StandardLane) rArray[0].getOtherLane().get(random.nextInt(rArray[0].getOtherLane().size()) + 1);
 								}
-								
+
 							}
+							car.setAllTime(System.currentTimeMillis());
+							car.setRoadTime(System.currentTimeMillis());// 设置入路时间和进区域时间，之后做减法统计花费时间
 
 							car.setCurrentLane((StandardLane) lane);
 							/////////////////////////// 设置是否横向
@@ -85,7 +90,11 @@ public class CarComeOutListener implements LifecycleListener {
 								car.setYyPoint(car.getCurrentLane().getYyOne());
 							}
 							((StandardLane) lane).addCar(car);
-							StandardEntityFactory.registerCar(car);
+							StandardEntityFactory.registerCar(car);// 注册car
+
+							if (Constant.ISNOTEINFO != 0) {
+								info.insertCarInfo(Constant.EXPID, car);// 将car信息插入mongodb数据库
+							}
 						}
 						try {
 							Thread.sleep(Constant.CARCOMEOOUT);// 默认是10s);

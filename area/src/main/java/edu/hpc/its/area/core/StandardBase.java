@@ -30,7 +30,7 @@ public abstract class StandardBase implements Lifecycle {
 	/**
 	 * 日志
 	 */
-	private Logger log = Logger.getLogger(StandardPipeline.class);
+	private Logger log = Logger.getLogger(StandardBase.class);
 
 	/**
 	 * 异常管理器

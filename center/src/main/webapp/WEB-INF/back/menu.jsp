@@ -14,7 +14,14 @@
 			<a href="javascript:void(0)" class="easyui-linkbutton" style="width:100%" dir="routs">行程管理</a>
 		</div>
 	</div>
+	<div title="信息统计" data-options="iconCls:'icon-chart'"
+		style="overflow: auto;">
+		<div style="padding:2px">
+			<a href="javascript:void(0)" class="easyui-linkbutton" style="width:100%" dir="info">信息统计</a>
+		</div>
+	</div>
 </div>
+
 <script type="text/javascript">
 menu_but_event();//如果需要ajax加载菜单项，在回调函数最后这个方法。
 </script>

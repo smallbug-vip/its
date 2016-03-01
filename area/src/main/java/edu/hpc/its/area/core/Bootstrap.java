@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
+import javax.xml.ws.Endpoint;
+
 import edu.hpc.its.area.Constant;
 import edu.hpc.its.area.culster.AreaConnector;
 import edu.hpc.its.area.factory.StandardEntityFactory;
@@ -13,6 +15,7 @@ import edu.hpc.its.area.listener.CarComeOutListener;
 import edu.hpc.its.area.listener.CarRunListener;
 import edu.hpc.its.area.listener.InitCarListener;
 import edu.hpc.its.area.listener.StartLightListener;
+import edu.hpc.its.area.webservice.AreaInfoServiceImpl;
 
 public class Bootstrap {
 
@@ -54,6 +57,7 @@ public class Bootstrap {
 			e.printStackTrace();
 		}
 
+		Endpoint.publish("http://" + Constant.AREAIP + ":8888/area", new AreaInfoServiceImpl());
 	}
 
 	/**
@@ -135,6 +139,14 @@ public class Bootstrap {
 				str = prop.getProperty("RODENUMONETHREAD");
 				if (str != null) {
 					Constant.RODENUMONETHREAD = new Integer(str);
+				}
+				str = prop.getProperty("EXPID");
+				if (str != null) {
+					Constant.EXPID = str;
+				}
+				str = prop.getProperty("ISNOTEINFO");
+				if (str != null) {
+					Constant.ISNOTEINFO = new Integer(str);
 				}
 				Constant.caculate();
 			} catch (Exception e) {

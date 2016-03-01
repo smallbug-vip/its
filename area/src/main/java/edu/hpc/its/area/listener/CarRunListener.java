@@ -31,7 +31,8 @@ public class CarRunListener implements LifecycleListener {
 	private void carRun() {
 		Map<Long, StandardRoad> roads = StandardEntityFactory.getRoadMap();// 获取区域所有路
 		int num = roads.size() / Constant.RODENUMONETHREAD;// 路分组的数量可能是num后者num+1
-		RoadGroup[] roadGroup = new RoadGroup[num == 0 ? num : num + 1];// 初始化路分组类的数组
+		int n = roads.size() % Constant.RODENUMONETHREAD;
+		RoadGroup[] roadGroup = new RoadGroup[n == 0 ? num : num + 1];// 初始化路分组类的数组
 		StandardRoad[] roadCache = new StandardRoad[Constant.RODENUMONETHREAD];// 初始化路的缓存数组
 		int i = 0, j = 0;// 计数器
 		for (Entry<Long, StandardRoad> roadEntry : roads.entrySet()) {

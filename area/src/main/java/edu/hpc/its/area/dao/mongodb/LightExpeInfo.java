@@ -37,4 +37,13 @@ public interface LightExpeInfo {
 	 * @return
 	 */
 	public List<String> selectLightInfo(String expId);
+
+	/**
+	 * 获取各试验中信号灯的变化频率
+	 * 
+	 * @timestamp Mar 2, 2016 12:54:01 AM
+	 * @param expIds
+	 * @return
+	 */
+	public List<Double> selectLightTimeByExpIds(String[] expIds);
 }

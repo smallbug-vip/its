@@ -30,6 +30,10 @@ public class StandardCar extends StandardEntity implements Car, CarRun {
 	private Double speed;// 速度
 	private StandardCross nextCross;
 
+	private String routeString;// 行车路线
+	private Long roadTime = 0L;
+	private Long allTime = 0L;
+
 	@Override
 	public void run() {
 		try {
@@ -131,11 +135,34 @@ public class StandardCar extends StandardEntity implements Car, CarRun {
 		this.nextCross = nextCross;
 	}
 
+	public Long getRoadTime() {
+		return roadTime;
+	}
+
+	public void setRoadTime(Long roadTime) {
+		this.roadTime = roadTime;
+	}
+
+	public Long getAllTime() {
+		return allTime;
+	}
+
+	public void setAllTime(Long allTime) {
+		this.allTime = allTime;
+	}
+
+	public String getRouteString() {
+		return routeString;
+	}
+
+	public void setRouteString(String routeString) {
+		this.routeString = routeString;
+	}
+
 	@Override
 	public String toString() {
-		return "StandardCar [carRun=" + carRun + ", horizontal=" + horizontal + ", xxPoint=" + xxPoint + ", yyPoint="
-				+ yyPoint + ", length=" + length + ", angle=" + angle + ", speed=" + speed + ", image=" + image
-				+ ", areaId=" + areaId + "]";
+		return "StandardCar [carRun=" + carRun + ", horizontal=" + horizontal + ", xxPoint=" + xxPoint + ", yyPoint=" + yyPoint + ", length=" + length + ", angle=" + angle
+				+ ", speed=" + speed + ", image=" + image + ", areaId=" + areaId + "]";
 	}
 
 }

@@ -40,4 +40,9 @@ public class LightExpeInfoImplTest {
 		}
 	}
 
+	@Test
+	public void testSelectLightTimeByExpIds() {
+		System.out.println(info.selectLightTimeByExpIds(new String[] { "Exp000001", "Exp000002" }));
+	}
+
 }

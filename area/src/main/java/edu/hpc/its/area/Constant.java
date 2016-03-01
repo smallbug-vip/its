@@ -26,8 +26,8 @@ public class Constant {
 	public static double ROADREALITYLENGTH = ROADLENGTH / COMPRESS * ONECM;// 路在浏览器中的实际长度
 
 	/************************ 信号灯数据 ************************/
-	public static double READTIME = 30 * 1000;// 红灯时间
-	public static double GREENTIME = 30 * 1000;// 绿灯时间
+	public static double READTIME = 30000;// 红灯时间
+	public static double GREENTIME = 30000;// 绿灯时间
 
 	/************************ 连接器 ************************/
 	public static int MINPROCESSORS = 5;// Socket处理器最小个数
@@ -37,6 +37,8 @@ public class Constant {
 	public static long CARCOMEOOUT = 10000;// 隔多长时间路口出一次车
 	public static int CARCOMEOOUTNUM = 0;// 一个路口出一种类型的车多少次，默认是0即无限制一直出
 	public static int RODENUMONETHREAD = 10;// 一根线程管理多少条路
+	public static String EXPID = "Exp000001";// 实验ID
+	public static int ISNOTEINFO = 0;// 是否使用mongodb记录数据，默认是0不记录
 
 	/**
 	 * 常量计算变量

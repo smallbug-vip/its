@@ -2,6 +2,8 @@ package edu.hpc.its.area.dao.mongodb;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Projections.excludeId;
+import static com.mongodb.client.model.Projections.include;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
 import edu.hpc.its.area.core.StandardCar;
@@ -68,7 +71,8 @@ public class CarExpeInfoImpl implements CarExpeInfo {
 		MongoCollection<Document> col = mongo.getDb().getCollection("carInfo");
 		Document doc = new Document("carId", car.getId())//
 				.append("expId", expId)//
-				.append("speed", car.getSpeed());
+				.append("speed", car.getSpeed())//
+				.append("route", car.getRouteString());
 		col.insertOne(doc);
 		mongo.closeClient();
 
@@ -162,6 +166,29 @@ public class CarExpeInfoImpl implements CarExpeInfo {
 		}
 		mongo.closeClient();
 		return infos;
+	}
+
+	@Override
+	public List<Double> getAvgTime(String[] expIds) {
+		if (expIds == null) {
+			throw new IllegalArgumentException("expIds not null !");
+		}
+		MongoCollection<Document> col = mongo.getDb().getCollection("appearTime");
+		List<Double> avgTime = new ArrayList<>();
+		for (String expId : expIds) {
+			FindIterable<Document> it = col.find(eq("expId", expId))//
+					.projection(and(include("time"), excludeId()));
+			Long i = 0L;
+			Long sum = 0L;
+			for (Document doc : it) {
+				Long d = doc.get("time", Long.class);
+				sum += d;
+				i++;
+			}
+			avgTime.add((double) (sum / i / 1000));
+		}
+
+		return avgTime;
 	}
 
 }

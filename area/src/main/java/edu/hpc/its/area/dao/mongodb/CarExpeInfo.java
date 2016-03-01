@@ -101,4 +101,13 @@ public interface CarExpeInfo {
 	 * @return
 	 */
 	public List<String> selectExpCar(String expId);
+
+	/**
+	 * 获取单次试验中车行驶的平均时间
+	 * 
+	 * @timestamp Mar 2, 2016 1:15:00 AM
+	 * @param expId
+	 * @return
+	 */
+	public List<Double> getAvgTime(String[] expIds);
 }
