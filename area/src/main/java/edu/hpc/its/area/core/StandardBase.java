@@ -41,8 +41,9 @@ public abstract class StandardBase implements Lifecycle {
 	 * 添加监听器
 	 */
 	@Override
-	public void addLifecycleListener(LifecycleListener listener) {
+	public Lifecycle addLifecycleListener(LifecycleListener listener) {
 		support.addLifecycleListener(listener);
+		return this;
 	}
 
 	/**

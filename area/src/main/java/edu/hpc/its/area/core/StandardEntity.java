@@ -22,7 +22,7 @@ public class StandardEntity extends StandardMBean implements Entity, Remote {
 		this.id = id;
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -45,6 +45,6 @@ public class StandardEntity extends StandardMBean implements Entity, Remote {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}*/
 
 }

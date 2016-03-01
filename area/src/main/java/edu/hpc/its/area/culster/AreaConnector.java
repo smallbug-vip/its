@@ -10,10 +10,10 @@ import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
 
+import edu.hpc.its.area.Constant;
 import edu.hpc.its.area.LifecycleState;
 import edu.hpc.its.area.core.StandardArea;
 import edu.hpc.its.area.core.StandardBase;
-import edu.hpc.its.area.core.StandardPipeline;
 import edu.hpc.its.area.exception.LifecycleException;
 import edu.hpc.its.area.factory.ServerSocketFactory;
 
@@ -38,17 +38,17 @@ public class AreaConnector extends StandardBase implements Runnable {
 	/**
 	 * 监听端口号
 	 */
-	private int port = 19234;
+	private int port = Constant.AREAPORT;
 
 	/**
 	 * 处理器池中的最小处理器个数
 	 */
-	protected int minProcessors = 5;
+	protected int minProcessors = Constant.MINPROCESSORS;
 
 	/**
 	 * 处理器池中的最大处理器个数
 	 */
-	private int maxProcessors = 20;
+	private int maxProcessors = Constant.MAXPROCESSORS;
 
 	/**
 	 * 现在处理器池中处理器的个数
@@ -141,7 +141,7 @@ public class AreaConnector extends StandardBase implements Runnable {
 	private AreaProcessor newProcessor() {
 		AreaProcessor processor = new AreaProcessor(this, curProcessors++);
 		processor.start();
-		log.info("AreaProcessor[" + getPort() + "][" + (curProcessors-1) + "] started !");
+		log.info("AreaProcessor[" + getPort() + "][" + (curProcessors - 1) + "] started !");
 		return (processor);
 	}
 
@@ -284,7 +284,6 @@ public class AreaConnector extends StandardBase implements Runnable {
 			}
 			if ((maxProcessors > 0) && (curProcessors < maxProcessors)) {
 				AreaProcessor p = newProcessor();
-				recycle(p);
 				return p;
 			} else {
 				if (maxProcessors < 0) {

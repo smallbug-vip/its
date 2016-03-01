@@ -21,7 +21,7 @@ public class TestAop {
 		s.insertLinkEntity(entity);
 	}
 
-	@Test
+//	@Test
 	public void testSelect() {
 
 		LinkEntityService s = (LinkEntityService) ServiceProxy//
@@ -31,7 +31,7 @@ public class TestAop {
 		System.out.println(entity.getId() + "-----" + entity.getName());
 	}
 
-	@Test
+//	@Test
 	public void testDelete() {
 		LinkEntityService s = (LinkEntityService) ServiceProxy//
 				.getServiceProxy(new LinkEntityServiceImpl());

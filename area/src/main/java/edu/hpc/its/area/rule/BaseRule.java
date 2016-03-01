@@ -4,7 +4,6 @@ import edu.hpc.its.area.Contained;
 import edu.hpc.its.area.Entity;
 import edu.hpc.its.area.LifecycleState;
 import edu.hpc.its.area.Rule;
-import edu.hpc.its.area.core.EntityWrap;
 import edu.hpc.its.area.core.StandardMBean;
 import edu.hpc.its.area.exception.LifecycleException;
 import edu.hpc.its.area.util.StringManager;
@@ -37,7 +36,6 @@ public abstract class BaseRule extends StandardMBean implements Rule, Contained 
 	@Override
 	public void setEntity(Entity entity) {
 		this.entity = entity;
-
 	}
 
 	@Override
@@ -56,29 +54,26 @@ public abstract class BaseRule extends StandardMBean implements Rule, Contained 
 	}
 
 	@Override
-	public abstract void invoke(EntityWrap entityWrap);
+	public abstract void invoke();
 
 	@Override
 	protected void startInternal() throws LifecycleException {
-		setState(LifecycleState.STARTING);
 		super.startInternal();
+		setState(LifecycleState.STARTING);
 	}
 
 	@Override
 	protected void stopInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 		super.stopInternal();
 	}
 
 	@Override
 	protected void initInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 		super.initInternal();
 	}
 
 	@Override
 	protected void destroyInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 		super.destroyInternal();
 	}
 

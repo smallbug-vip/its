@@ -1,7 +1,5 @@
 package edu.hpc.its.area;
 
-import edu.hpc.its.area.core.EntityWrap;
-
 /**
  * 规则接口
  * 
@@ -38,7 +36,6 @@ public interface Rule {
 	 * 执行规则
 	 * 
 	 * @timestamp Feb 15, 2016 7:18:38 PM
-	 * @param base
 	 */
-	public void invoke(EntityWrap entityWrap);
+	public void invoke();
 }

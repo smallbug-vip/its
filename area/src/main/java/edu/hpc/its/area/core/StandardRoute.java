@@ -18,6 +18,8 @@ public class StandardRoute extends StandardEntity implements Route {
 	private Double speed;
 	private String routeTable;
 
+	private Long areaId;
+
 	public Double getSpeed() {
 		return speed;
 	}
@@ -32,6 +34,14 @@ public class StandardRoute extends StandardEntity implements Route {
 
 	public void setRouteTable(String routeTable) {
 		this.routeTable = routeTable;
+	}
+
+	public Long getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(Long areaId) {
+		this.areaId = areaId;
 	}
 
 }

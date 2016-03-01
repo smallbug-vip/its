@@ -70,7 +70,7 @@ public interface Lifecycle {
 	 * @timestamp Feb 16, 2016 2:40:06 PM
 	 * @param listener
 	 */
-	public void addLifecycleListener(LifecycleListener listener);
+	public Lifecycle addLifecycleListener(LifecycleListener listener);
 
 	/**
 	 * 获取所有监听器

@@ -68,6 +68,7 @@ public class ServiceException extends RuntimeException {
 			}
 		}
 		if (throwable != null) {
+			throwable.printStackTrace();
 			sb.append(throwable.toString());
 		}
 		return (sb.toString());

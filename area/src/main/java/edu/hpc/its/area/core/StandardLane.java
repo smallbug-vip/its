@@ -1,5 +1,8 @@
 package edu.hpc.its.area.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import edu.hpc.its.area.Constant;
 import edu.hpc.its.area.Lane;
 import edu.hpc.its.area.LifecycleState;
@@ -25,7 +28,6 @@ public class StandardLane extends StandardEntity implements Lane {
 
 	@Override
 	protected void stopInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 		super.stopInternal();
 	}
 
@@ -54,8 +56,42 @@ public class StandardLane extends StandardEntity implements Lane {
 
 	@Override
 	protected void destroyInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 		super.destroyInternal();
+	}
+	/***************************** 车行驶相关 *****************************/
+
+	/**
+	 * 1、增删频繁所以用LinkedList<br/>
+	 * 2、不在方法上加synchronized是因为方法以this对象为锁会导致所有同步方法均不可用，这样加只会同步三个方法其他方法无影响
+	 */
+	private List<StandardCar> currentCar = new LinkedList<>();
+
+	public void addCar(StandardCar car) {
+		synchronized (lock) {
+			currentCar.add(car);
+		}
+	}
+
+	public void removeCar(StandardCar car) {
+		if (car != null) {
+			synchronized (lock) {
+				currentCar.remove(car);
+			}
+		}
+	}
+
+	/**
+	 * 获取当期车道上的车
+	 * 
+	 * @timestamp Feb 27, 2016 2:10:23 PM
+	 * @return
+	 */
+	public List<StandardCar> getCurrentCar() {
+		synchronized (lock) {
+			List<StandardCar> current = new LinkedList<StandardCar>();
+			current.addAll(currentCar);
+			return current;
+		}
 	}
 
 	/***************************** BEAN *****************************/
@@ -72,6 +108,8 @@ public class StandardLane extends StandardEntity implements Lane {
 
 	private int number;// 几号车道
 	private StandardRoad standardRoad;// 所属路
+
+	private Object lock = new Object();
 
 	public Double getLength() {
 		return length;
@@ -155,7 +193,8 @@ public class StandardLane extends StandardEntity implements Lane {
 
 	@Override
 	public String toString() {
-		return "StandardLane [length=" + length + ", width=" + width + ", realityLength=" + realityLength + ", realityWidth=" + realityWidth + ", number=" + number + "]";
+		return "StandardLane [length=" + length + ", width=" + width + ", realityLength=" + realityLength
+				+ ", realityWidth=" + realityWidth + ", number=" + number + "]";
 	}
 
 }

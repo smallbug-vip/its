@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.hpc.its.center.config.AreaInfo;
 import edu.hpc.its.center.config.InitInfo;
-import edu.hpc.its.center.util.CommandQuery;
+import edu.hpc.its.center.util.CommandQueue;
 import edu.hpc.its.center.util.GetRemoteData;
 
 /**
@@ -34,7 +34,7 @@ public class SendMessage {
 	/**
 	 * 命令队列，存放客户端下达的命令
 	 */
-	private CommandQuery<CommandEntity> query = new CommandQuery<>();
+	private CommandQueue<CommandEntity> queue = new CommandQueue<>();
 
 	private GetRemoteData remoteData = new GetRemoteData();
 	/**
@@ -86,9 +86,9 @@ public class SendMessage {
 	 * @timestamp Feb 22, 2016 4:25:48 PM
 	 */
 	private void execute() {
-		if (query != null && query.size() > 0) {
-			while (!query.isEmpty()) {
-				CommandEntity entity = query.deQueue();
+		if (queue != null && queue.size() > 0) {
+			while (!queue.isEmpty()) {
+				CommandEntity entity = queue.deQueue();
 				switch (entity.getCommand()) {
 				case Command.AREACHOOSE:// 选择区域进行加载
 					sendAreaMessage(entity.getValue());
@@ -102,11 +102,25 @@ public class SendMessage {
 				case Command.LOADLIGHTDATA:
 					sendLightMessage(entity.getValue());
 					break;
+				case Command.LOADCARDATA:
+					sendCarMessage(entity.getValue());
+					break;
 				default:
 					break;
 				}
 			}
 		}
+	}
+
+	/**
+	 * 发送车信息
+	 * 
+	 * @timestamp Feb 26, 2016 2:42:56 PM
+	 * @param value
+	 */
+	private void sendCarMessage(String[] value) {
+		String data = remoteData.getDate(initInfo, Command.LOADCARDATA);
+		broadcast(data);
 	}
 
 	/**
@@ -161,7 +175,7 @@ public class SendMessage {
 			}
 			if (list != null && list.length > 0) {
 				for (CommandEntity l : list) {
-					query.enQueue(l);// 放入命令队列
+					queue.enQueue(l);// 放入命令队列
 				}
 			}
 		} catch (Exception e) {
@@ -177,7 +191,7 @@ public class SendMessage {
 	 * @param msg
 	 *            要发送的字符串
 	 */
-	private void broadcast(String msg) {
+	private synchronized void broadcast(String msg) {
 		try {
 			session.getBasicRemote().sendText(msg);
 		} catch (IOException e) {

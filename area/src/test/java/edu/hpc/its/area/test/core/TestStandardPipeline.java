@@ -2,11 +2,6 @@ package edu.hpc.its.area.test.core;
 
 import org.junit.Test;
 
-import edu.hpc.its.area.core.StandardCarRun;
-import edu.hpc.its.area.Entity;
-import edu.hpc.its.area.core.EntityWrap;
-import edu.hpc.its.area.core.StandardCar;
-
 public class TestStandardPipeline {
 
 	/**
@@ -16,10 +11,10 @@ public class TestStandardPipeline {
 	 */
 	@Test
 	public void testBasic() {
-		StandardCarRun run = new StandardCarRun();
-		StandardCar car = new StandardCar();
-		EntityWrap entityWrap = new EntityWrap();
-		entityWrap.addEntity(Entity.CAR, car);
-		run.run(entityWrap);
+//		StandardCar car = new StandardCar();
+//		StandardCarRun run = new StandardCarRun(car);
+//		EntityWrap entityWrap = new EntityWrap();
+//		entityWrap.addEntity(Entity.CAR, car);
+//		run.run(entityWrap);
 	}
 }

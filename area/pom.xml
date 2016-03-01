@@ -83,6 +83,7 @@
 
 	<build>
 		<plugins>
+			<!-- 打成可运行包 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -97,6 +98,15 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<!-- 打包不测试 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<!-- 从本地Maven仓库复制到某个特定的文件夹下面 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>

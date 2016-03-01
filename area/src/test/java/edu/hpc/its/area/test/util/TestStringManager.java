@@ -8,8 +8,8 @@ public class TestStringManager {
 
 	@Test
 	public void testGetString() {
-//		StringManager manager = StringManager.getManager("edu.hpc.its.area.core");
-//		String str = manager.getString("applicationContext.addListener.iae.cnfe",TestStringManager.class);
-//		System.out.println(str);
+		StringManager manager = StringManager.getManager("edu.hpc.its.area.core");
+		String str = manager.getString("applicationContext.addListener.iae.cnfe",TestStringManager.class);
+		System.out.println(str);
 	}
 }

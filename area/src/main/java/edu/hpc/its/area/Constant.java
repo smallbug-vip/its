@@ -13,20 +13,37 @@ public class Constant {
 	public static double COMPRESS = 1720;// 实际长度/压缩后长度，压缩率
 
 	/************************ 区域数据 ************************/
-	public static String AREAIP = "192.168.88.131";// 运行该区域机器的IP地址
-	public static String AREANAME = "一号区域";// 区域名称
+	public static String AREAIP = "127.0.0.1";// 运行该区域机器的IP地址
+	public static String AREANAME = "NUM001";// 区域名称
 	public static int AREAPORT = 12200;//// 运行该区域机器的开放的端口号
 
-	public static int HORIZONTALNUM = 5;// 横向20个路口
-	public static int VERTICALNUM = 5;// 纵向20个路口
+	public static int HORIZONTALNUM = 5;// 横向5个路口
+	public static int VERTICALNUM = 5;// 纵向5个路口
 	public static double ROADLENGTH = 100000;// 路长100000cm
 	public static int LANENUM = 3;// 一个路有3条单向行道，即一个路是6条车道
-	public static double LANEWIDE = 150;// 道宽150cm
+	public static double LANEWIDE = 200;// 道宽150cm
 
 	public static double ROADREALITYLENGTH = ROADLENGTH / COMPRESS * ONECM;// 路在浏览器中的实际长度
 
 	/************************ 信号灯数据 ************************/
-	public static double READTIME = 60 * 1000;// 红灯时间
+	public static double READTIME = 30 * 1000;// 红灯时间
 	public static double GREENTIME = 30 * 1000;// 绿灯时间
 
+	/************************ 连接器 ************************/
+	public static int MINPROCESSORS = 5;// Socket处理器最小个数
+	public static int MAXPROCESSORS = 20;// Socket处理器最大个数
+
+	/************************ 车行驶数据 ************************/
+	public static long CARCOMEOOUT = 10000;// 隔多长时间路口出一次车
+	public static int CARCOMEOOUTNUM = 0;// 一个路口出一种类型的车多少次，默认是0即无限制一直出
+	public static int RODENUMONETHREAD = 10;// 一根线程管理多少条路
+
+	/**
+	 * 常量计算变量
+	 * 
+	 * @timestamp Feb 24, 2016 8:51:49 PM
+	 */
+	public static void caculate() {
+		ROADREALITYLENGTH = ROADLENGTH / COMPRESS * ONECM;
+	}
 }

@@ -87,7 +87,7 @@ public class StandardRoad extends StandardEntity implements Road {
 						this.setLength(this.getXxOther() - this.getXxOne());
 					}
 				}
-			} else {// 如果路为西北向
+			} else {// 如果路为南北向
 				this.setXxOne(Constant.ROADREALITYLENGTH * this.horizontalNum);
 				this.setXxOther(Constant.ROADREALITYLENGTH * this.horizontalNum);
 				if (this.ordinateNum == 1) {// 如果该路北向没有路口
@@ -110,8 +110,13 @@ public class StandardRoad extends StandardEntity implements Road {
 					}
 				}
 			}
+			if (isHorizontal()) {
+				setSign("H|" + ordinateNum + "|" + horizontalNum);
+			} else {
+				setSign("N|" + ordinateNum + "|" + horizontalNum);
+			}
 			// 初始化车道
-			
+
 			for (StandardLane lane : lanes) {
 				lane.init();
 			}
@@ -150,8 +155,17 @@ public class StandardRoad extends StandardEntity implements Road {
 	private Cross oneCross;// 路一端的路口
 	private Cross otherCross;// 路另一端的路口
 
+	private String sign;
 	private Map<Integer, Lane> oneLane = new HashMap<>();// 路一边车道,Integer代表几号车道
 	private Map<Integer, Lane> otherLane = new HashMap<>();// 路另一边车道
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
 
 	public Double getXxOne() {
 		return xxOne;

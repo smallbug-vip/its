@@ -1,29 +1,35 @@
 package edu.hpc.its.area.core;
 
 import edu.hpc.its.area.CarRun;
+import edu.hpc.its.area.LifecycleState;
 import edu.hpc.its.area.Pipeline;
-import edu.hpc.its.area.Rule;
-import edu.hpc.its.area.exception.CarRunException;
-import edu.hpc.its.area.rule.CarRunRule;
+import edu.hpc.its.area.listener.DefineRuleListener;
 
-public class StandardCarRun extends StandardMBean implements CarRun {
+/**
+ * 真正支持车运动的类
+ * 
+ * @timestamp Feb 24, 2016 7:21:00 PM
+ * @author smallbug
+ */
+public class StandardCarRun implements CarRun {
 
-	protected Pipeline pipeline = new StandardPipeline();
+	/**
+	 * 规则管道
+	 */
+	private Pipeline pipeline = null;
 
-	public StandardCarRun() {
-		pipeline.setBasic(new CarRunRule());
-	}
-
-	public synchronized void addValve(Rule rule) {
-
-		pipeline.addRule(rule);
+	public StandardCarRun(StandardEntity entity) {
+		super();
+		pipeline = new StandardPipeline(entity);
+		pipeline.addLifecycleListener(new DefineRuleListener());// 注册状态监听器，保证pipeline初始化时装配Rule链
 	}
 
 	@Override
-	public void run(EntityWrap entityWrap) {
-		if (entityWrap == null) {
-			throw new CarRunException(sManager.getString("standardCarRun.run.err01", StandardCarRun.class));
+	public void run() {
+		if (LifecycleState.NEW == pipeline.getState()) {
+			pipeline.start();
 		}
-		pipeline.getFirst().invoke(entityWrap);
+		pipeline.getFirst().invoke();
 	}
+
 }

@@ -1,4 +1,4 @@
-//名称空间
+//namespace
 (function($) {
 	$.namespace = function(namespaceString) {
 		var temp = [];
@@ -24,6 +24,7 @@
 			// init stage
 			$.fn.its.stage = new createjs.Stage("its_map");
 			$.fn.its.lightView = new createjs.Container();
+			$.fn.its.carView = new createjs.Container();
 			// webService send commaind to load data
 			var socket = new WebSocket("ws://" + url);
 
@@ -35,12 +36,15 @@
 				socket.onmessage = function(event) {
 					var entity = eval("(" + event.data + ")");
 					if ("cars" == entity["entity"]) {
-
+						$.fn.its.loadCar(canvers, entity["coordinate"],
+								socket);
 					} else if ("lights" == entity["entity"]) {
 						$.fn.its.loadLight(canvers, entity["coordinate"], socket);
 					} else if ("lanes" == entity["entity"]) {
 						$.fn.its.loadLane(canvers, entity["coordinate"], socket);
-						socket.send("[{'command':'loadLightData'}]");
+//						socket.send("[{'command':'loadLightData'}]");
+						$.fn.its.lightChange(socket);
+						$.fn.its.carChange(socket);
 					} else if ("roads" == entity["entity"]) {
 						$.fn.its
 								.loadRoad(canvers, entity["coordinate"], socket);
@@ -66,6 +70,8 @@
 		loadArea : function(canvers, data, socket) {
 			canvers.attr("width", data["width"]);
 			canvers.attr("height", data["length"]);
+//			canvers.attr("width", 15000);
+//			canvers.attr("height", 15000);
 		},
 		loadRoad : function(canvers, data, socket) {
 			var stage = $.fn.its.stage;
@@ -115,7 +121,32 @@
 			});
 			view.addChild(Line);
 			stage.addChild(view);
+//			$.info(data[0])
 			stage.update();
+		},
+		loadCar : function(canvers, data, socket) {
+			var stage = $.fn.its.stage;
+			var view = $.fn.its.carView;
+			view.removeAllChildren();
+			for ( var i=0; i < data.length; i++) {
+				var carImage = new createjs.Bitmap("http://" + data[i]["image"]);
+				carImage.x = data[i]["xxPoint"];
+				carImage.y = data[i]["yyPoint"];
+				carImage.rotation = data[i]["angle"];
+				view.addChild(carImage);
+			}
+			stage.addChild(view);
+			stage.update();
+		},
+		lightChange : function(socket){
+			setInterval(function(){
+				socket.send("[{'command':'loadLightData'}]");
+				},1000);
+		},
+		carChange : function(socket){
+			setInterval(function(){
+				socket.send("[{'command':'loadCarData'}]");
+				},100);
 		}
 	};
 

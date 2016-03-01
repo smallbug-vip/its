@@ -92,7 +92,7 @@ public class ProcessorCommand {
 			re.close();
 			socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("---->> client error close!");
 		}
 	}
 
@@ -185,7 +185,7 @@ public class ProcessorCommand {
 			if (socket != null)
 				socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("---->> client error close!");
 		}
 	}
 
@@ -195,8 +195,16 @@ public class ProcessorCommand {
 	 * @timestamp Feb 22, 2016 7:49:23 PM
 	 */
 	private void carInfo() {
-		// TODO Auto-generated method stub
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		BufferedOutputStream bo = new BufferedOutputStream(bos);
 
+		writeHead(bo, "cars");
+		try {
+			bo.write(StandardEntityFactory.getCarInfoJson().getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		send(bos, bo);
 	}
 
 	/**

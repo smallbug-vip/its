@@ -6,7 +6,7 @@ package edu.hpc.its.area;
  * @timestamp Feb 14, 2016 10:18:15 PM
  * @author smallbug
  */
-public interface Pipeline {
+public interface Pipeline extends Lifecycle{
 
 	/**
 	 * 获取基础Rule

@@ -1,6 +1,7 @@
 package edu.hpc.its.area.core;
 
 import edu.hpc.its.area.Car;
+import edu.hpc.its.area.CarRun;
 
 /**
  * 车
@@ -8,17 +9,95 @@ import edu.hpc.its.area.Car;
  * @timestamp Feb 13, 2016 4:12:17 PM
  * @author smallbug
  */
-public class StandardCar extends StandardEntity implements Car {
+public class StandardCar extends StandardEntity implements Car, CarRun {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -896347064968801518L;
 
-	private String image;// 车图
-	private StandardRoute standardRoute;// 当前行程
-	private StandardLane standardLane;// 当前车道
+	////////////////////////// Car Run////////////////////////////////////
+	private StandardCarRun carRun = new StandardCarRun(this);
 	private boolean horizontal;// 是否横向
+
+	private StandardLane currentLane;// 当前车道
+	private volatile Double xxPoint;
+	private volatile Double yyPoint;// <-横纵坐标
+
+	private volatile Double length;// 取自currentLane，length为0表示路已走完
+	private volatile int angle = 0;// 图片旋转的角度
+	private StandardRoad[] roads;// 要走那些路，数组长度为0时表示走完
+	private Double speed;// 速度
+	private StandardCross nextCross;
+
+	@Override
+	public void run() {
+		try {
+			carRun.run();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	////////////////////////// BEAN////////////////////////////////////
+	private String image;// 车图片
+	private Long areaId;
+
+	public boolean isHorizontal() {
+		return horizontal;
+	}
+
+	public void setHorizontal(boolean horizontal) {
+		this.horizontal = horizontal;
+	}
+
+	public StandardLane getCurrentLane() {
+		return currentLane;
+	}
+
+	public void setCurrentLane(StandardLane currentLane) {
+		this.currentLane = currentLane;
+	}
+
+	public Double getXxPoint() {
+		return xxPoint;
+	}
+
+	public void setXxPoint(Double xxPoint) {
+		this.xxPoint = xxPoint;
+	}
+
+	public Double getYyPoint() {
+		return yyPoint;
+	}
+
+	public void setYyPoint(Double yyPoint) {
+		this.yyPoint = yyPoint;
+	}
+
+	public Double getLength() {
+		return length;
+	}
+
+	public void setLength(Double length) {
+		this.length = length;
+	}
+
+	public StandardRoad[] getRoads() {
+		return roads;
+	}
+
+	public void setRoads(StandardRoad[] roads) {
+		this.roads = roads;
+	}
+
+	public Double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(Double speed) {
+		this.speed = speed;
+	}
 
 	public String getImage() {
 		return image;
@@ -28,28 +107,35 @@ public class StandardCar extends StandardEntity implements Car {
 		this.image = image;
 	}
 
-	public StandardRoute getStandardRouts() {
-		return standardRoute;
+	public Long getAreaId() {
+		return areaId;
 	}
 
-	public void setStandardRouts(StandardRoute standardRoute) {
-		this.standardRoute = standardRoute;
+	public void setAreaId(Long areaId) {
+		this.areaId = areaId;
 	}
 
-	public StandardLane getStandardLane() {
-		return standardLane;
+	public int getAngle() {
+		return angle;
 	}
 
-	public void setStandardLane(StandardLane standardLane) {
-		this.standardLane = standardLane;
+	public void setAngle(int angle) {
+		this.angle = angle;
 	}
 
-	public boolean isHorizontal() {
-		return horizontal;
+	public StandardCross getNextCross() {
+		return nextCross;
 	}
 
-	public void setHorizontal(boolean horizontal) {
-		this.horizontal = horizontal;
+	public void setNextCross(StandardCross nextCross) {
+		this.nextCross = nextCross;
+	}
+
+	@Override
+	public String toString() {
+		return "StandardCar [carRun=" + carRun + ", horizontal=" + horizontal + ", xxPoint=" + xxPoint + ", yyPoint="
+				+ yyPoint + ", length=" + length + ", angle=" + angle + ", speed=" + speed + ", image=" + image
+				+ ", areaId=" + areaId + "]";
 	}
 
 }

@@ -12,6 +12,7 @@ import edu.hpc.its.area.exception.LifecycleException;
 import edu.hpc.its.area.util.StringManager;
 
 /**
+ * 规则管道
  * 
  * @timestamp Feb 14, 2016 11:39:03 PM
  * @author smallbug
@@ -44,6 +45,10 @@ public class StandardPipeline extends StandardBase implements Pipeline, Containe
 
 	public StandardPipeline() {
 		super();
+	}
+
+	public StandardPipeline(Entity entity) {
+		this.entity = entity;
 	}
 
 	/**
@@ -228,7 +233,6 @@ public class StandardPipeline extends StandardBase implements Pipeline, Containe
 				((Lifecycle) current).start();
 			current = current.getNext();
 		}
-
 		setState(LifecycleState.STARTING);
 
 	}
@@ -241,7 +245,6 @@ public class StandardPipeline extends StandardBase implements Pipeline, Containe
 
 	@Override
 	protected void initInternal() throws LifecycleException {
-		// TODO Auto-generated method stub
 
 	}
 

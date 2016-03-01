@@ -4,6 +4,7 @@ import edu.hpc.its.area.Constant;
 import edu.hpc.its.area.LifecycleState;
 import edu.hpc.its.area.Light;
 import edu.hpc.its.area.exception.LifecycleException;
+import edu.hpc.its.area.factory.StandardEntityFactory;
 
 /**
  * 信号灯
@@ -33,6 +34,7 @@ public class StandardLight extends StandardEntity implements Light {
 	protected void initInternal() throws LifecycleException {
 		super.initInternal();
 		double part = Constant.LANENUM * (Constant.LANEWIDE / Constant.COMPRESS * Constant.ONECM);
+		StandardEntityFactory.addLight(this);
 		try {
 			// 初始化坐标
 			if (getDirection() == Direction.NORTH || getDirection() == Direction.SOUTH) {
@@ -59,7 +61,7 @@ public class StandardLight extends StandardEntity implements Light {
 
 	/***************************** BEAN *****************************/
 	private Double size;// 灯线长
-	private int lightState = 0;// 状态 0:红,1:绿
+	private volatile int lightState = 0;// 状态 0:红,1:绿
 
 	private Double centerX;// 灯的横坐标
 	private Double centerY;// 灯的纵坐标
@@ -71,9 +73,18 @@ public class StandardLight extends StandardEntity implements Light {
 
 	private Direction direction;
 
-	private volatile Double red;// 红灯亮多长时间
-	private volatile Double green;// 绿灯亮多长时间
+	private Double red;// 红灯亮多长时间
+	private Double green;// 绿灯亮多长时间
 
+	/**
+	 * 时间到切换灯的状态，暂时感觉不需要加锁<br>
+	 * <ul>
+	 * <li>暂时为单线程扫描不存在线程安全问题</li>
+	 * <li>即使多线程状态，只要能保证线程更新完之后状态能立刻同步到对象中，并且每次使用时都从对象中重新获取就行</li>
+	 * <li>即使加同步，有偏向锁的作用，性能应该也不会下降很多</li>
+	 * </ul>
+	 */
+	private volatile double time = 0.0;//
 	private StandardCross standardCross;// 所属的路口
 
 	// @SuppressWarnings("unused")
@@ -89,6 +100,14 @@ public class StandardLight extends StandardEntity implements Light {
 
 	public Direction getDirection() {
 		return direction;
+	}
+
+	public Double getTime() {
+		return time;
+	}
+
+	public void setTime(Double time) {
+		this.time = time;
 	}
 
 	public void setDirection(Direction direction) {

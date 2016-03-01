@@ -1,19 +1,17 @@
 package edu.hpc.its.center;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.hpc.its.center.util.CommandQuery;
+import edu.hpc.its.center.util.CommandQueue;
 import edu.hpc.its.center.web.CommandEntity;
 
 public class TestQuery {
 
-	private CommandQuery query = new CommandQuery();
+	private CommandQueue<CommandEntity> query = new CommandQueue<>();
 
-	@Test
+//	@Test
 	public void testQuery() {
 		String json = "[{\"command\":\"AREACHOOSE\",\"value\":[\"NUM001\"]}]";
 		parseMessage(json);
