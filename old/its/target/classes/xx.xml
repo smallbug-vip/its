@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<its>
+	<map id="100001">
+		<roads>
+			<road id="200001" refer='null' angle="0" length="200">
+				<lane id="300001" width='5'></lane>
+				<lane id="300002" width="5"></lane>
+				<lane id="300003" width="5"></lane>
+				<lane id="300004" width="5"></lane>
+			</road>
+			<road id="200002" refer="null" angle="90" length="150">
+				<lane id="300005" width="5"></lane>
+				<lane id="300006" width="5"></lane>
+				<lane id="300007" width="5"></lane>
+				<lane id="300008" width="5"></lane>
+			</road>
+			<road id="200003" refer="null" angle="180" length="200">
+				<lane id="300009" width="5"></lane>
+				<lane id="300010" width="5"></lane>
+				<lane id="300011" width="5"></lane>
+				<lane id="300012" width="5"></lane>
+			</road>
+			<road id="200004" refer="null" angle="-90" length="150">
+				<lane id="300013" width="5"></lane>
+				<lane id="300014" width="5"></lane>
+				<lane id="300015" width="5"></lane>
+				<lane id="300016" width="5"></lane>
+			</road>
+			<road id="200005" refer="200001" angle="90" length="150">
+				<lane id="300017" width="5"></lane>
+				<lane id="300018" width="5"></lane>
+				<lane id="300019" width="5"></lane>
+				<lane id="300020" width="5"></lane>
+			</road>
+			<road id="200006" refer="200002" angle="0" length="200">
+				<lane id="300021" width="5"></lane>
+				<lane id="300022" width="5"></lane>
+				<lane id="300023" width="5"></lane>
+				<lane id="300024" width="5"></lane>
+			</road>
+			<road id="200007" refer="200002" angle="180" length="200">
+				<lane id="300025" width="5"></lane>
+				<lane id="300026" width="5"></lane>
+				<lane id="300027" width="5"></lane>
+				<lane id="300028" width="5"></lane>
+			</road>
+			<road id="200008" refer="200003" angle="90" length="150">
+				<lane id="300029" width="5"></lane>
+				<lane id="300030" width="5"></lane>
+				<lane id="300031" width="5"></lane>
+				<lane id="300032" width="5"></lane>
+			</road>
+			<road id="200009" refer="200003" angle="-90" length="150">
+				<lane id="300033" width="5"></lane>
+				<lane id="300034" width="5"></lane>
+				<lane id="300035" width="5"></lane>
+				<lane id="300036" width="5"></lane>
+			</road>
+			<road id="200010" refer="200004" angle="180" length="200">
+				<lane id="300037" width="5"></lane>
+				<lane id="300038" width="5"></lane>
+				<lane id="300039" width="5"></lane>
+				<lane id="300040" width="5"></lane>
+			</road>
+			<road id="200011" refer="200004" angle="0" length="200">
+				<lane id="300041" width="5"></lane>
+				<lane id="300042" width="5"></lane>
+				<lane id="300043" width="5"></lane>
+				<lane id="300044" width="5"></lane>
+			</road>
+			<road id="200012" refer="200001" angle="-90" length="150">
+				<lane id="300045" width="5"></lane>
+				<lane id="300046" width="5"></lane>
+				<lane id="300047" width="5"></lane>
+				<lane id="300048" width="5"></lane>
+			</road>
+			<road id="200013" refer="200006" angle="90" length="150">
+				<lane id="300049" width="5"></lane>
+				<lane id="300050" width="5"></lane>
+				<lane id="300051" width="5"></lane>
+				<lane id="300052" width="5"></lane>
+			</road>
+			<road id="200014" refer="200002" angle="90" length="150">
+				<lane id="300053" width="5"></lane>
+				<lane id="300054" width="5"></lane>
+				<lane id="300055" width="5"></lane>
+				<lane id="300056" width="5"></lane>
+			</road>
+			<road id="200015" refer="200007" angle="90" length="150">
+				<lane id="300057" width="5"></lane>
+				<lane id="300058" width="5"></lane>
+				<lane id="300059" width="5"></lane>
+				<lane id="300060" width="5"></lane>
+			</road>
+			<road id="200016" refer="200007" angle="162" length="500">
+				<lane id="300061" width="5"></lane>
+				<lane id="300062" width="5"></lane>
+				<lane id="300063" width="5"></lane>
+				<lane id="300064" width="5"></lane>
+			</road>
+			<road id="200017" refer="200003" angle="180" length="200">
+				<lane id="300065" width="5"></lane>
+				<lane id="300066" width="5"></lane>
+				<lane id="300067" width="5"></lane>
+				<lane id="300068" width="5"></lane>
+			</road>
+			<road id="200018" refer="200009" angle="180" length="200">
+				<lane id="300069" width="5"></lane>
+				<lane id="300070" width="5"></lane>
+				<lane id="300071" width="5"></lane>
+				<lane id="300072" width="5"></lane>
+			</road>
+			<road id="200019" refer="200009" angle="-90" length="150">
+				<lane id="300073" width="5"></lane>
+				<lane id="300074" width="5"></lane>
+				<lane id="300075" width="5"></lane>
+				<lane id="300076" width="5"></lane>
+			</road>
+			<road id="200020" refer="200004" angle="-90" length="150">
+				<lane id="300077" width="5"></lane>
+				<lane id="300078" width="5"></lane>
+				<lane id="300079" width="5"></lane>
+				<lane id="300080" width="5"></lane>
+			</road>
+			<road id="200021" refer="200011" angle="-90" length="150">
+				<lane id="300081" width="5"></lane>
+				<lane id="300082" width="5"></lane>
+				<lane id="300083" width="5"></lane>
+				<lane id="300084" width="5"></lane>
+			</road>
+			<road id="200022" refer="200011" angle="0" length="200">
+				<lane id="300085" width="5"></lane>
+				<lane id="300086" width="5"></lane>
+				<lane id="300087" width="5"></lane>
+				<lane id="300088" width="5"></lane>
+			</road>
+			<road id="200023" refer="200001" angle="0" length="200">
+				<lane id="300089" width="5"></lane>
+				<lane id="300090" width="5"></lane>
+				<lane id="300091" width="5"></lane>
+				<lane id="300092" width="5"></lane>
+			</road>
+			<road id="200024" refer="200006" angle="18" length="500">
+				<lane id="300093" width="5"></lane>
+				<lane id="300094" width="5"></lane>
+				<lane id="300095" width="5"></lane>
+				<lane id="300096" width="5"></lane>
+			</road>
+		</roads>
+		<intersections>
+			<intersection id="400001" refer="null">
+				<road id="200001">
+					<light id="500001" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200002">
+					<light id="500002" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200003">
+					<light id="500003" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200004">
+					<light id="500004" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400002" refer="200002">
+				<road id="200002">
+					<light id="500005" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200006">
+					<light id="500006" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200007">
+					<light id="500007" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200014">
+					<light id="500008" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400003" refer="200007">
+				<road id="200007">
+					<light id="500009" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200008">
+					<light id="500010" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200015">
+					<light id="500011" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200016">
+					<light id="500012" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400004" refer="200003">
+				<road id="200003">
+					<light id="500013" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200008">
+					<light id="500014" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200009">
+					<light id="500015" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200017">
+					<light id="500016" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400005" refer="200010">
+				<road id="200009">
+					<light id="500017" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200010">
+					<light id="5000018" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200018">
+					<light id="500019" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200019">
+					<light id="500020" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400006" refer="200004">
+				<road id="200004">
+					<light id="500021" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200010">
+					<light id="5000022" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200011">
+					<light id="500023" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200020">
+					<light id="500024" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400007" refer="200011">
+				<road id="200011">
+					<light id="500025" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200012">
+					<light id="5000026" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200021">
+					<light id="500027" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200022">
+					<light id="500028" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400008" refer="200001">
+				<road id="200001">
+					<light id="500029" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200005">
+					<light id="5000030" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200012">
+					<light id="500031" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200023">
+					<light id="500032" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+			<intersection id="400009" refer="200005">
+				<road id="200005">
+					<light id="500033" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200006">
+					<light id="5000034" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+				<road id="200013">
+					<light id="500035" state="0" group="0" red="5000" green="5000"></light>
+				</road>
+				<road id="200024">
+					<light id="500036" state="1" group="1" red="5000" green="5000"></light>
+				</road>
+			</intersection>
+		</intersections>
+		<!-- speed:车速 -->
+		<!-- image：车的图片 -->
+		<!-- width：车的宽度 -->
+		<!-- height：车的长度 -->
+		<!-- amount：出多少辆车 -->
+		<!-- sleep：隔多长时间出一辆 -->
+		<cars>
+			<!-- distance:距离路末端的距离 -->
+			<car id="600001" speed="5" image="localhost:8080/its/image/a.png"
+				amount="40" sleep="10000" startDistance="0" endDistance="0">
+				<road id="200013"></road>
+				<road id="200006"></road>
+				<road id="200007"></road>
+				<road id="200008"></road>
+				<road id="200003"></road>
+				<road id="200001"></road>
+				<road id="200012"></road>
+				<road id="200011"></road>
+				<road id="200010"></road>
+				<road id="200019"></road>
+			</car>
+			<car id="600041" speed="4" image="localhost:8080/its/image/b.png"
+				amount="40" sleep="10000" startDistance="20" endDistance="0">
+				<road id="200019"></road>
+				<road id="200010"></road>
+				<road id="200011"></road>
+				<road id="200012"></road>
+				<road id="200001"></road>
+				<road id="200003"></road>
+				<road id="200008"></road>
+				<road id="200007"></road>
+				<road id="200006"></road>
+				<road id="200013"></road>
+			</car>
+			<car id="600081" speed="3" image="localhost:8080/its/image/c.png"
+				amount="40" sleep="10000" startDistance="0" endDistance="0">
+				<road id="200016"></road>
+				<road id="200008"></road>
+				<road id="200003"></road>
+				<road id="200001"></road>
+				<road id="200012"></road>
+				<road id="200022"></road>
+			</car>
+			<car id="600121" speed="2" image="localhost:8080/its/image/d.png"
+				amount="40" sleep="10000" startDistance="0" endDistance="0">
+				<road id="200013"></road>
+				<road id="200006"></road>
+				<road id="200002"></road>
+				<road id="200003"></road>
+				<road id="200009"></road>
+				<road id="200018"></road>
+			</car>
+			<car id="600161" speed="3" image="localhost:8080/its/image/e.png"
+				amount="40" sleep="10000" startDistance="0" endDistance="0">
+				<road id="200018"></road>
+				<road id="200009"></road>
+				<road id="200008"></road>
+				<road id="200007"></road>
+				<road id="200002"></road>
+				<road id="200004"></road>
+				<road id="200011"></road>
+				<road id="200012"></road>
+				<road id="200005"></road>
+				<road id="200024"></road>
+			</car>
+		</cars>
+	</map>
+</its>
